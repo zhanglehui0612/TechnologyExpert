@@ -161,13 +161,13 @@
 ✅ 第二: 都可以用于聚合、排序场景  
 
 #### 7.3.2 不同点
-🎯 **存储方式不一样**
+🎯 **存储方式不一样**  
 ➡️ fielddata存储在内存；doc_values基于page_cache和磁盘存储  
 
-🎯 **针对字段不一样**
+🎯 **针对字段不一样**  
 ➡️ fielddata是针对分词字段; doc_values针对的是非分词字段  
 
-🎯 **是否默认开启**
+🎯 **是否默认开启**  
 ➡️ fielddata默认关闭；doc_values默认开启  
 
 ## 八 ElasticSearch中store、index、text、keyword、norms之间的区别
@@ -193,20 +193,20 @@
 ### 9.1 什么是refresh
 ✅ 索引并不是直接写入磁盘的，而是先写入内存中，也就是IndexBuffer，但是写入IndexBuffer索引是不能被查询的  
 ✅ 只有写入到操作系统page cache中或者刷盘后，索引才可以被查询  
-✅ 所以，需要将IndexBuffer内存中的索引数据写入到page cache就是refresh  
+✅ 所以，需要将IndexBuffer内存中的索引数据写入到page cache就是refresh   
 
 ### 9.2 什么是flush
-✅ 指的是需要将Page Cache数据刷入到磁盘，包括Page Cache中的索引数据和索引日志数据translog
+✅ 指的是需要将Page Cache数据刷入到磁盘，包括Page Cache中的索引数据和索引日志数据translog  
 
 ### 9.3 refresh时机
-✅ 第一: 可以通过API接口/refresh，手动refresh
-✅ 第二: 配置了refresh_interval刷新频率，定时任务会根据这个频率进行refresh
-✅ 第三: IndexBuffer索引缓冲区写满了，会自动refresh
-✅ 第四: 关闭索引的时候，既会refresh，也会触发flush操作
+✅ 第一: 可以通过API接口/refresh，手动refresh  
+✅ 第二: 配置了refresh_interval刷新频率，定时任务会根据这个频率进行refresh  
+✅ 第三: IndexBuffer索引缓冲区写满了，会自动refresh  
+✅ 第四: 关闭索引的时候，既会refresh，也会触发flush操作  
 
 ### 9.4 flush时机
-✅ 第一: 操作系统后台有定时任务会定时flush
-✅ 第二: 当ElasticSearch内存不足的时候，会将page cache中数据刷到磁盘
-✅ 第三: 关闭索引的时候，既会将IndexBuffer中的数据refresh, 还会进行flush操作
-✅ 第四: 当事务日志translog到期(默认30分钟)或者事务日志文件写满了(默认512mb)，也会将page cache刷盘
-✅ 第五: 如果开启了同步刷盘，每次写translog就会刷盘
+✅ 第一: 操作系统后台有定时任务会定时flush  
+✅ 第二: 当ElasticSearch内存不足的时候，会将page cache中数据刷到磁盘  
+✅ 第三: 关闭索引的时候，既会将IndexBuffer中的数据refresh, 还会进行flush操作  
+✅ 第四: 当事务日志translog到期(默认30分钟)或者事务日志文件写满了(默认512mb)，也会将page cache刷盘  
+✅ 第五: 如果开启了同步刷盘，每次写translog就会刷盘  
